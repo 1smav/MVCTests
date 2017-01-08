@@ -23,7 +23,8 @@ namespace Vidly.Controllers
         }
         public ViewResult Index()
         {
-            var Customers = _context.Customers.Include(c => c.MembershipType).Include(co => co.MembershipType).ToList();
+            // var Customers = _context.Customers.Include(c => c.MembershipType).Include(co => co.MembershipType).ToList();
+            var Customers = GetCustomers();
             return View(Customers);
         }
 
@@ -31,8 +32,8 @@ namespace Vidly.Controllers
 
         public ActionResult Details(int id)
         {
-            // var Customer = GetCustomers().SingleOrDefault(c => c.Id == id);
-            var Customer = _context.Customers.SingleOrDefault(c => c.Id == id);
+             var Customer = GetCustomers().SingleOrDefault(c => c.Id == id);
+           // var Customer = _context.Customers.SingleOrDefault(c => c.Id == id);
             if (Customer == null)
                 return HttpNotFound();
 
@@ -40,14 +41,14 @@ namespace Vidly.Controllers
 
         }
 
-        //public IEnumerable<Customer> GetCustomers()
-        //{
-        //    return new List<Customer>
-        //    {
-        //         new Customer {Id = 1, Name = "Vamsi" },
-        //        new Customer {Id = 2, Name = "Priyanka" }
-        //    };
+        public IEnumerable<Customer> GetCustomers()
+        {
+            return new List<Customer>
+            {
+                 new Customer {Id = 1, Name = "Vamsi" },
+                new Customer {Id = 2, Name = "Priyanka" }
+            };
 
-        //}
+        }
     }
 }
